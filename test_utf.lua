@@ -1,4 +1,4 @@
-local utf = loadfile('../utf.lua')()
+local utf = require 'utf'
 
 function test_single_u16_code_unit()
     local code_units = utf.u32_to_u16(0x0020)
