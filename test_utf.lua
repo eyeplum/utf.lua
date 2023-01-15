@@ -67,3 +67,20 @@ test_3_octets()
 test_4_octets()
 test_single_u16_code_unit()
 test_surrogate_pair()
+
+function test_u16_and_u8_round_trip()
+    local utf_16 = { 0xD835, 0xDC05 }
+    local utf_8 = utf.u16_to_u8(utf_16)
+    assert(#utf_8 == 4)
+    assert(utf_8[1] == 0xF0)
+    assert(utf_8[2] == 0x9D)
+    assert(utf_8[3] == 0x90)
+    assert(utf_8[4] == 0x85)
+
+    local round_tripped = utf.u8_to_u16(utf_8)
+    assert(#round_tripped == 2)
+    assert(round_tripped[1] == 0xD835)
+    assert(round_tripped[2] == 0xDC05)
+end
+
+test_u16_and_u8_round_trip()
